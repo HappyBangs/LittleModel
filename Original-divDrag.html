@@ -2,24 +2,31 @@
     <head>
         <script type="text/javascript">
             var isDialogTitle=false;
-            
+            var diffx=0;
+            var diffy=0;
             function down(e){
                 if(e.target.className.indexOf('dialog-title')!=-1){
-                    alert(e.target.className.indexOf('dialog-title'));
+                   // alert(e.target.className.indexOf('dialog-title'));
+                   draggingObj=e.target.offsetParent;
                     isDialogTitle=true;
+                    diffx = event.clientX - draggingObj.offsetLeft+30;
+                    diffy = event.clientY - draggingObj.offsetTop+30;
                 }
             }
             
             function move(e){
                 var dialog=document.getElementById('dlgTest');
                 if(isDialogTitle){//只有点击Dialog Title的时候才能拖动
-                    dialog.style.left=e.clientX+'px';
-                    dialog.style.top=e.clientY+'px';
+                    //alert(dialog.style.left);  e.clientX-dialog.style.left
+                    dialog.style.left=(e.clientX-diffx)+'px';
+                    dialog.style.top=(e.clientY-diffy)+'px';
                 }
             }
             
             function up(e){
                 isDialogTitle=false;
+                diffx=0;
+                diffy=0;
             }
             
             document.addEventListener('mousedown',down);
@@ -60,6 +67,10 @@
             .dialog-content
             {
                 padding:4px;
+            }
+            #dlgTest
+            {
+                margin:30px 30px;
             }
         </style>
         <meta http-equiv="Content-type" content="text/html;charset=utf-8">
