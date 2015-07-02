@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Tab选项卡</title>
+<style type="text/css">
+*{ margin:0 ; padding:0;}
+li { list-style-type:none;}
+.tab { margin-bottom:30px;}
+.tab .title li { cursor:pointer; height:30px; line-height:30px; background:#ccc; float:left; margin-right:5px; padding:0 10px;}
+.tab .title li.on { background:#0C0; color:#000;}
+.tab .icontent { display:none;}
+.tab .content { border:1px solid #ccc; min-height:60px; clear:both;}
+</style>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script> 
+</head>
+
+<body style="padding-left:100px;">
+    <p style="margin:30px 0 30px 0;">Tab选项卡</p>
+    <div class="tab">
+        <ul class="title">
+            <li class="on">选项一</li>
+            <li>选项二</li>
+            <li>选项三</li>
+        </ul>
+        <div class="content">
+            <div class="icontent" style="display:block">
+                内容一
+            </div>
+            <div class="icontent">
+                内容二
+            </div>
+            <div class="icontent">
+                内容三
+            </div>
+        </div>
+    </div>
+    
+    <div class="tab">
+        <ul class="title">
+            <li class="on">选项1</li>
+            <li>选项2</li>
+            <li>选项3</li>
+        </ul>
+        <div class="content">
+            <div class="icontent" style="display:block">
+                内容1
+            </div>
+            <div class="icontent">
+                内容2
+            </div>
+            <div class="icontent">
+                内容3
+            </div>
+        </div>
+    </div>
+    
+    <div class="tab" id="hover">
+        <ul class="title">
+            <li class="on">选项1</li>
+            <li>选项2</li>
+            <li>选项3</li>
+        </ul>
+        <div class="content">
+            <div class="icontent" style="display:block">
+                内容1
+            </div>
+            <div class="icontent">
+                内容2
+            </div>
+            <div class="icontent">
+                内容3
+            </div>
+        </div>
+    </div>
+    
+    
+ <script type="text/javascript">
+    function tab(nav,type){
+        var $nav = $(nav);
+        var $title = $(".title", $nav);
+        
+        $title.find("li").bind(type,function(){
+            $this = $(this);
+            var index = $this.prevAll().length;
+            $this.siblings("li").removeClass("on").end().addClass("on");;
+            $this.parent().next(".content").find(".icontent").hide().eq(index).show();
+        })
+    }
+    //
+    tab(".tab","click");
+    tab("#hover","mouseover")
+ </script>
+</body>
+</html>
